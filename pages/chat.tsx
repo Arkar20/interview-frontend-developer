@@ -1,7 +1,7 @@
 import React from "react";
 import type { NextPage } from "next";
 import { I_FirestoreAndAuth } from "../src/types";
-import { collection } from "firebase/firestore";
+import { collection, query, orderBy } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { ChatList } from "../src/components/atoms";
 import { ChatForm, Loading } from "../src/components/templates";
@@ -10,7 +10,8 @@ import Link from "next/link";
 
 const Chat: NextPage<I_FirestoreAndAuth> = (props) => {
   const messageRef = collection(props.firestore, "messages");
-  const [messages] = useCollectionData(messageRef);
+  const queryRef = query(messageRef, orderBy("createdAt"));
+  const [messages] = useCollectionData(queryRef);
   const [user, loading] = useAuthState(props.auth);
 
   if (loading) {

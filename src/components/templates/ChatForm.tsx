@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { I_FirestoreAndAuth } from "../../types";
 import { BaseInput, BaseButton } from "../atoms";
@@ -14,6 +14,8 @@ const WrapperForm = styled.form`
 
 const ChatForm = (props: I_FirestoreAndAuth) => {
   const [text, setText] = useState("");
+
+  const inputRef = useRef<HTMLInputElement>();
   const handleAddMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!text) {
@@ -26,6 +28,11 @@ const ChatForm = (props: I_FirestoreAndAuth) => {
       uid: props.auth.currentUser?.uid,
     });
     setText("");
+
+    if (inputRef.current) {
+      inputRef.current.scrollIntoView(true);
+      inputRef.current.focus();
+    }
   };
   return (
     <WrapperForm onSubmit={handleAddMessage}>
