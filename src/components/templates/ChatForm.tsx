@@ -1,29 +1,34 @@
 import React, { useState } from "react";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { I_FirestoreAndAuth } from "../../types";
+import { BaseInput, BaseButton } from "../atoms";
 const ChatForm = (props: I_FirestoreAndAuth) => {
   const [text, setText] = useState("");
   const handleAddMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!text) {
+      alert("Type Something in the text box");
+      return;
+    }
     await setDoc(doc(props.firestore, "messages", text), {
       text,
       createdAt: serverTimestamp(),
       uid: props.auth.currentUser?.uid,
     });
-    setText("")
+    setText("");
   };
   return (
     <form
-      className="fixed bottom-0 w-full h-[40px] flex mt-3 mb-1"
+      className=" bottom-0 w-full h-[40px] flex mt-3 mb-1"
       onSubmit={handleAddMessage}
     >
-      <input
+      <BaseInput
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="w-[90%]  px-1 outline-none"
-        placeholder="Type your message here  "
+        placeholder="Type your message here"
+        className="w-[90%]"
       />
-      <button className="flex-grow bg-yellow-400 text-white">Send</button>
+      <BaseButton className="bg-yellow-400 flex-grow">Send</BaseButton>
     </form>
   );
 };

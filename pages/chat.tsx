@@ -28,7 +28,7 @@ const Chat: NextPage<I_FirestoreAndAuth> = (props) => {
     <div>
       <h4 className="bg-blue-600 p-3 text-white text-2xl">Chat Room</h4>
 
-      <ul className="m-3 space-y-3">
+      <ul className="m-3 min-h-screen space-y-3 ">
         {messages &&
           messages.map((message, index) => {
             return (

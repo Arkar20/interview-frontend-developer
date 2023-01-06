@@ -1,6 +1,7 @@
 import React from "react";
 import Router from "next/router";
 import { UserCredential } from "firebase/auth";
+import { BaseButton } from "../atoms";
 interface I_LoginProps {
   signInWithGoogle: () => Promise<UserCredential>;
 }
@@ -17,7 +18,7 @@ const Login = (props: I_LoginProps) => {
   };
   return (
     <form onSubmit={handleSubmit} className="w-[600px] flex flex-col m-4 ">
-      <button className="bg-blue-500  px-3 py-2">Sign In With Google</button>
+      <BaseButton className="bg-blue-600 py-3">Sign In With Google</BaseButton>
     </form>
   );
 };
