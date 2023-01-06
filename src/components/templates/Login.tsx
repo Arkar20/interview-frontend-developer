@@ -1,15 +1,20 @@
 import React from "react";
 import Router from "next/router";
-
+import { UserCredential } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 interface I_LoginProps {
-  signInWithGoogle: () => void;
+  signInWithGoogle: () => Promise<UserCredential>;
 }
 
 const Login = (props: I_LoginProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.signInWithGoogle();
-    Router.push("/chat");
+    props
+      .signInWithGoogle()
+      .then(() => {
+        Router.push("/chat");
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <form onSubmit={handleSubmit} className="w-[600px] flex flex-col m-4 ">

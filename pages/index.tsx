@@ -15,9 +15,14 @@ const Home: NextPage<I_props> = (props) => {
   const { auth } = props;
   const [user] = useAuthState(auth);
 
+  console.log(user);
+
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+    return signInWithPopup(auth, provider);
+  };
+  const signOut = () => {
+    auth.signOut();
   };
 
   return (
@@ -26,7 +31,13 @@ const Home: NextPage<I_props> = (props) => {
         <title>Chat App Interview</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Login signInWithGoogle={signInWithGoogle} />
+      {user ? (
+        <button className="bg-red-300 px-2 py-1" onClick={signOut}>
+          Logout
+        </button>
+      ) : (
+        <Login signInWithGoogle={signInWithGoogle} />
+      )}
     </div>
   );
 };
