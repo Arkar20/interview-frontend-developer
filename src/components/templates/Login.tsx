@@ -1,9 +1,9 @@
 import React from "react";
 import Router from "next/router";
 import { UserCredential } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
 interface I_LoginProps {
   signInWithGoogle: () => Promise<UserCredential>;
+  signOut: () => Promise<void>;
 }
 
 const Login = (props: I_LoginProps) => {

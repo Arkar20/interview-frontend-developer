@@ -19,7 +19,7 @@ const app = initializeApp({
 });
 
 const auth = getAuth();
-const firestore = getFirestore();
+const firestore = getFirestore(app);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const props = {

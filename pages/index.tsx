@@ -4,18 +4,11 @@ import { Login } from "../src/components/templates";
 import { useAuthState } from "react-firebase-hooks/auth";
 import React from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { Auth } from "firebase/auth";
-import { Firestore } from "firebase/firestore";
-interface I_props {
-  auth: Auth;
-  firestore: Firestore;
-}
+import { I_FirestoreAndAuth } from "../src/types";
 
-const Home: NextPage<I_props> = (props) => {
+const Home: NextPage<I_FirestoreAndAuth> = (props) => {
   const { auth } = props;
   const [user] = useAuthState(auth);
-
-  console.log(user);
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
