@@ -1,13 +1,19 @@
 import React from "react";
-const Login = () => {
+import Router from "next/router";
+
+interface I_LoginProps {
+  signInWithGoogle: () => void;
+}
+
+const Login = (props: I_LoginProps) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    props.signInWithGoogle();
+    Router.push("/chat");
+  };
   return (
-    <form action="" className="w-[600px] flex flex-col m-4 ">
-      <input
-        type="text"
-        className=" my-3 bg-gray-100 py-2 px-1"
-        placeholder="Enter your name"
-      />
-      <button className="bg-blue-300 px-3 py-2">GO TO CHAT</button>
+    <form onSubmit={handleSubmit} className="w-[600px] flex flex-col m-4 ">
+      <button className="bg-blue-300 px-3 py-2">Sign In With Google</button>
     </form>
   );
 };
