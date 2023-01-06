@@ -17,7 +17,7 @@ const Login = (props: I_LoginProps) => {
   };
   return (
     <form onSubmit={handleSubmit} className="w-[600px] flex flex-col m-4 ">
-      <button className="bg-blue-300 px-3 py-2">Sign In With Google</button>
+      <button className="bg-blue-500  px-3 py-2">Sign In With Google</button>
     </form>
   );
 };
