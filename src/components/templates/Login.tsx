@@ -3,7 +3,6 @@ import Router from "next/router";
 import { UserCredential } from "firebase/auth";
 interface I_LoginProps {
   signInWithGoogle: () => Promise<UserCredential>;
-  signOut: () => Promise<void>;
 }
 
 const Login = (props: I_LoginProps) => {
