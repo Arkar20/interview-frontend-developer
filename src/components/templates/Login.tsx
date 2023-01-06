@@ -2,6 +2,13 @@ import React from "react";
 import Router from "next/router";
 import { UserCredential } from "firebase/auth";
 import { BaseButton } from "../atoms";
+import styled from "styled-components";
+
+const Wrapper = styled.form`
+  width: 500px;
+  margin: 1rem;
+`;
+
 interface I_LoginProps {
   signInWithGoogle: () => Promise<UserCredential>;
 }
@@ -17,9 +24,11 @@ const Login = (props: I_LoginProps) => {
       .catch((err) => console.log(err));
   };
   return (
-    <form onSubmit={handleSubmit} className="w-[600px] flex flex-col m-4 ">
-      <BaseButton className="bg-blue-600 py-3">Sign In With Google</BaseButton>
-    </form>
+    <Wrapper onSubmit={handleSubmit}>
+      <BaseButton className="bg-blue-600 py-3 w-full">
+        Sign In With Google
+      </BaseButton>
+    </Wrapper>
   );
 };
 

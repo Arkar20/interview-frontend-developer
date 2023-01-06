@@ -4,14 +4,18 @@ import { I_FirestoreAndAuth } from "../src/types";
 import { collection } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { ChatList } from "../src/components/atoms";
-import { ChatForm } from "../src/components/templates/ChatForm";
+import { ChatForm, Loading } from "../src/components/templates";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
 
 const Chat: NextPage<I_FirestoreAndAuth> = (props) => {
   const messageRef = collection(props.firestore, "messages");
   const [messages] = useCollectionData(messageRef);
-  const [user] = useAuthState(props.auth);
+  const [user, loading] = useAuthState(props.auth);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (!user) {
     return (
@@ -26,7 +30,9 @@ const Chat: NextPage<I_FirestoreAndAuth> = (props) => {
 
   return (
     <div>
-      <h4 className="bg-blue-600 p-3 text-white text-2xl">Chat Room</h4>
+      <div className="bg-blue-600 p-3 w-full">
+        <h4 className="text-white text-2xl">Chat Room</h4>
+      </div>
 
       <ul className="m-3 min-h-screen space-y-3 ">
         {messages &&

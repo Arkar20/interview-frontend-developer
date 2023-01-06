@@ -2,6 +2,16 @@ import React, { useState } from "react";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { I_FirestoreAndAuth } from "../../types";
 import { BaseInput, BaseButton } from "../atoms";
+import styled from "styled-components";
+
+const WrapperForm = styled.form`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+`;
+
 const ChatForm = (props: I_FirestoreAndAuth) => {
   const [text, setText] = useState("");
   const handleAddMessage = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,10 +28,7 @@ const ChatForm = (props: I_FirestoreAndAuth) => {
     setText("");
   };
   return (
-    <form
-      className=" bottom-0 w-full h-[40px] flex mt-3 mb-1"
-      onSubmit={handleAddMessage}
-    >
+    <WrapperForm onSubmit={handleAddMessage}>
       <BaseInput
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -29,7 +36,7 @@ const ChatForm = (props: I_FirestoreAndAuth) => {
         className="w-[90%]"
       />
       <BaseButton className="bg-yellow-400 flex-grow">Send</BaseButton>
-    </form>
+    </WrapperForm>
   );
 };
 
