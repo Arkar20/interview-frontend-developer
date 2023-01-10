@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .custom_slider {
+      @apply w-full h-[600px]  text-white flex justify-center items-center;
+    }
+  }
