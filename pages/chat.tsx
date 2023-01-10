@@ -1,34 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import type { NextPage } from "next";
 import { I_FirestoreAndAuth } from "types";
-import { collection, query, orderBy } from "firebase/firestore";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { ChatList } from "src/components/templates";
 import { ChatForm, Loading } from "../src/components/templates";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
-import { useAppDispatch } from "hooks/redux";
-import { addChats } from "rstore/modules";
-import { I_chatSingle } from "../types";
+import { useFirebaseChat } from "hooks/useFirebaseChat";
 
 const Chat: NextPage<I_FirestoreAndAuth> = (props) => {
-  const messageRef = collection(props.firestore, "messages");
-  const queryRef = query(messageRef, orderBy("createdAt"));
-  const [messages] = useCollectionData(queryRef);
   const [user, loading] = useAuthState(props.auth);
 
-  const dispatch = useAppDispatch();
+  useFirebaseChat(props.firestore, props.auth.currentUser?.uid);
 
-  useEffect(() => {
-    if (messages) {
-      const newMessages: I_chatSingle[] = messages.map((message) => ({
-        text: message.text,
-        isOwner: message.uid === props.auth.currentUser?.uid,
-        uid: message.uuid,
-      }));
-      dispatch(addChats(newMessages));
-    }
-  }, [messages]);
   if (loading) {
     return <Loading />;
   }
