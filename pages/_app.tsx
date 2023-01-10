@@ -6,6 +6,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+//redux
+import { wrapper } from "../rstore";
+
 const app = initializeApp({
   apiKey: "AIzaSyDTYFMLA5uo1gUp1tfH6HBWEJqPJwVPi2I",
   authDomain: "interview-react-chat-app.firebaseapp.com",
@@ -30,4 +33,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...props} />;
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
