@@ -5,7 +5,7 @@ interface I_ChatListProps {
   isOwner: boolean;
 }
 
-const ChatList = (props: I_ChatListProps) => {
+const SingleChat = (props: I_ChatListProps) => {
   return (
     <li className={`w-full flex ${props.isOwner && "justify-end"} `}>
       <div
@@ -26,4 +26,4 @@ const ChatList = (props: I_ChatListProps) => {
   );
 };
 
-export { ChatList };
+export { SingleChat };

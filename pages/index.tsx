@@ -4,7 +4,7 @@ import { Login } from "../src/components/templates";
 import { useAuthState } from "react-firebase-hooks/auth";
 import React from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { I_FirestoreAndAuth } from "../src/types";
+import { I_FirestoreAndAuth } from "../types";
 import { BaseButton } from "../src/components/atoms";
 import { Banner } from "../src/components/templates";
 

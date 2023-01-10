@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { NextPage } from "next";
-import { I_FirestoreAndAuth } from "../src/types";
+import { I_FirestoreAndAuth } from "types";
 import { collection, query, orderBy } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { ChatList } from "../src/components/atoms";
+import { ChatList } from "src/components/templates";
 import { ChatForm, Loading } from "../src/components/templates";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
+import { useAppDispatch } from "hooks/redux";
+import { addChats } from "rstore/modules";
+import { I_chatSingle } from "../types";
 
 const Chat: NextPage<I_FirestoreAndAuth> = (props) => {
   const messageRef = collection(props.firestore, "messages");
@@ -14,6 +17,18 @@ const Chat: NextPage<I_FirestoreAndAuth> = (props) => {
   const [messages] = useCollectionData(queryRef);
   const [user, loading] = useAuthState(props.auth);
 
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (messages) {
+      const newMessages: I_chatSingle[] = messages.map((message) => ({
+        text: message.text,
+        isOwner: message.uid === props.auth.currentUser?.uid,
+        uid: message.uuid,
+      }));
+      dispatch(addChats(newMessages));
+    }
+  }, [messages]);
   if (loading) {
     return <Loading />;
   }
@@ -35,18 +50,7 @@ const Chat: NextPage<I_FirestoreAndAuth> = (props) => {
         <h4 className="text-white text-2xl">Chat Room</h4>
       </div>
 
-      <ul className="m-3 min-h-screen space-y-3 ">
-        {messages &&
-          messages.map((message, index) => {
-            return (
-              <ChatList
-                key={index}
-                text={message.text}
-                isOwner={message.uid === props.auth.currentUser?.uid}
-              />
-            );
-          })}
-      </ul>
+      <ChatList />
 
       <ChatForm firestore={props.firestore} auth={props.auth} />
     </div>

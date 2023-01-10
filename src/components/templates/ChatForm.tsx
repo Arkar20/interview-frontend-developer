@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { I_FirestoreAndAuth } from "../../types";
+import { I_FirestoreAndAuth } from "../../../types";
 import { BaseInput, BaseButton } from "../atoms";
 import styled from "styled-components";
 

@@ -1,3 +1,3 @@
-export * from "./ChatList";
+export * from "./SingleChat";
 export * from "./BaseInput";
 export * from "./BaseButton";
